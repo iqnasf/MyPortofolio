@@ -75,7 +75,7 @@ const projectsData = [
       {
         title: "1. Login",
         desc: "The login page is used to access the system, offering two user roles for authentication: login as an admin or login as a standard user.",
-        img: "Image/PPDB/Login.PNG",
+        img: "Image/PPDB/login.PNG",
       },
       {
         title: "2. Home Screen",
