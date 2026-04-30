@@ -75,7 +75,7 @@ const projectsData = [
       {
         title: "1. Login",
         desc: "The login page is used to access the system, offering two user roles for authentication: login as an admin or login as a standard user.",
-        img: "Image/PPDB/login.PNG",
+        img: "Image/PPDB/Login.PNG",
       },
       {
         title: "2. Home Screen",
@@ -106,7 +106,7 @@ const projectsData = [
       {
         title: "2. Register",
         desc: "If the user does not have an account, they can register by filling out the registration form which includes their personal information. After successful registration, the user can log in using their newly created account.",
-        img: "Image/Resto/Register.PNG",
+        img: "Image/Resto/register.PNG",
       },
       {
         title: "3. User Home Screen",
