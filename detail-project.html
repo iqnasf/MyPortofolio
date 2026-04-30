@@ -51,14 +51,13 @@
             const project = projectsData.find(p => p.id === projectId);
 
             if (project) {
-                // 1. Isi Data Utama
+                
                 document.title = project.title + " - Portfolio";
                 document.getElementById('detail-title').textContent = project.title;
                 document.getElementById('detail-desc').textContent = project.description;
                 document.getElementById('detail-image').src = project.main_image;
                 document.getElementById('detail-github').href = project.github_link;
 
-                // 2. Looping Tech Stack
                 const techContainer = document.getElementById('detail-tech');
                 project.tech_stack.forEach(tech => {
                     const span = document.createElement('span');
@@ -67,7 +66,6 @@
                     techContainer.appendChild(span);
                 });
 
-                // 3. TAMBAHAN: Looping Fitur & Gambar
                 const featuresContainer = document.getElementById('detail-features-container');
 
                 if (project.features && project.features.length > 0) {
