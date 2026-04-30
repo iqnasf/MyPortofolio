@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Detail</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <section class="project-detail-section" style="padding: 100px 20px; max-width: 800px; margin: 0 auto;">
+        <a href="index.html#projects" class="back-btn"
+            style="text-decoration: none; color: #007bff; margin-bottom: 20px; display: inline-block;">
+            <i class="fa-solid fa-arrow-left"></i> Kembali ke Portofolio
+        </a>
+
+        <div class="project-header" style="text-align: center; margin-bottom: 30px;">
+            <h1 id="detail-title">Loading...</h1>
+            <div id="detail-tech" class="tech-stack" style="margin-top: 15px;"></div>
+        </div>
+
+        <div class="project-image" style="margin-bottom: 30px;">
+            <img id="detail-image" src="" alt="Project Image"
+                style="width: 100%; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+        </div>
+
+        <div class="content-block" style="line-height: 1.6; color: #555;">
+            <h3 style="color: #222; border-bottom: 2px solid #007bff; display: inline-block; margin-bottom: 15px;">
+                Deskripsi Proyek</h3>
+            <p id="detail-desc"></p>
+        </div>
+        <div id="detail-features-container" class="content-block" style="margin-top: 40px;">
+        </div>
+
+        <div style="margin-top: 40px;">
+            <a id="detail-github" href="#" target="_blank" class="btn"
+                style="padding: 10px 20px; background: #333; color: white; text-decoration: none; border-radius: 5px;">
+                <i class="fa-brands fa-github"></i> Lihat Repository Code
+            </a>
+        </div>
+    </section>
+
+    <script src="js/project.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const projectId = urlParams.get('id');
+            const project = projectsData.find(p => p.id === projectId);
+
+            if (project) {
+                // 1. Isi Data Utama
+                document.title = project.title + " - Portfolio";
+                document.getElementById('detail-title').textContent = project.title;
+                document.getElementById('detail-desc').textContent = project.description;
+                document.getElementById('detail-image').src = project.main_image;
+                document.getElementById('detail-github').href = project.github_link;
+
+                // 2. Looping Tech Stack
+                const techContainer = document.getElementById('detail-tech');
+                project.tech_stack.forEach(tech => {
+                    const span = document.createElement('span');
+                    span.textContent = tech;
+                    span.style.cssText = "background: #e9ecef; padding: 5px 12px; border-radius: 20px; font-size: 0.85rem; margin: 0 5px 5px 0; display: inline-block;";
+                    techContainer.appendChild(span);
+                });
+
+                // 3. TAMBAHAN: Looping Fitur & Gambar
+                const featuresContainer = document.getElementById('detail-features-container');
+
+                if (project.features && project.features.length > 0) {
+                    let featuresHTML = `<h3 style="color: #222; border-bottom: 2px solid #007bff; display: inline-block; margin-bottom: 20px;">Fitur & Tampilan</h3>`;
+
+                    project.features.forEach(fitur => {
+                        // Cek apakah fitur.img itu array atau hanya string tunggal
+                        let imagesHTML = "";
+
+                        if (Array.isArray(fitur.img)) {
+                            // Jika array, looping semua gambar di dalamnya
+                            fitur.img.forEach(singleImg => {
+                                imagesHTML += `<img src="${singleImg}" alt="${fitur.title}" style="width: 100%; border-radius: 8px; border: 1px solid #eee; margin-bottom: 10px;">`;
+                            });
+                        } else {
+                            // Jika hanya satu string (bukan array), langsung masukkan
+                            imagesHTML = `<img src="${fitur.img}" alt="${fitur.title}" style="width: 100%; border-radius: 8px; border: 1px solid #eee;">`;
+                        }
+
+                        featuresHTML += `
+            <div style="margin-bottom: 40px; background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+                <h4 style="color: #333; margin-bottom: 10px; font-size: 1.2rem;">${fitur.title}</h4>
+                <p style="color: #555; line-height: 1.6; margin-bottom: 15px;">${fitur.desc}</p>
+                <div class="image-gallery">
+                    ${imagesHTML}
+                </div>
+            </div>
+        `;
+                    });
+
+                    featuresContainer.innerHTML = featuresHTML;
+                }
+
+            } else {
+                document.getElementById('detail-title').textContent = "Project Tidak Ditemukan";
+            }
+        });
+    </script>
+</body>
+
+</html>
